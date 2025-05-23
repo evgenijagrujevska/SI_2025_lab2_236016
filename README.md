@@ -16,4 +16,26 @@
 ### Тест случаи според Multiple Condition критериумот
 за условот if(item.getPrice() > 300 || item.getDiscount() > 0 || item.getQuantity() > 10)
 
+- За да се постигне овој критериум мора да има минимално 4 тест случаи:
+
+TXX	item.getPrice()>300							(400,0,5)
+
+FTX	item.getPrice()<=300, item.getDiscount()>0				(250,5,5)
+
+FFT	item.getPrice()<=300, item.getDiscount()<=0, item.getQuantity()>10	(250,0,15)
+
+FFF	item.getPrice()<=300, item.getDiscount()<=0, item.getQuantity()<=10	(250,0,5)
+
+
+- Со овие 4 тест случаи, се постигнува покривање на сите можни излезни резултати од условот (true и false).
+
+TXX: Првиот услов е точен, па останатите не се евалуираат (short-circuit)
+
+FTX: Првиот услов е неточен, вториот е точен
+
+FFT: Само третиот услов е точен
+
+FFF: Сите услови се неточни - ова е единствениот случај кога условот не се исполнува
+
+
 ### Објаснување на unit тестовите
