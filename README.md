@@ -13,39 +13,29 @@
 
 ### Тест случаи според Every Statement критериумот
 
-- За да се постигне овој критериум мора да има минимално 8 тест случаи:
+- За да се постигне овој критериум мора да има минимално 5 тест случаи:
 
 TC1
-- За if(allItems == null) и Throw Exception
-- checkCart(null, "123456789")
+- allItems=null cardNumber=any
+- За линии 52,53  ( if (allItems == null) и Throw Exception )
 
 TC2
-- За if(item.getName() == null || item.getName().length() == 0) и Throw Exception
-- checkCart(List.of(new Item("", 1, 100, 0)), "123456789")
+- allItems=[("", 1, 100, 0)] cardNumber=any
+- За линии 55-61  ( sum=0, for, Item item=allItems.get(i), if(item.getName() == null || item.getName().length() == 0) и Throw Exception )
 
 TC3
-- За if(item.getPrice() > 300 || item.getDiscount() > 0 || item.getQuantity() > 10) и sum -= 30
-- checkCart(List.of(new Item("A", 1, 400, 0)), "123456789"))
+- allItems=[("A", 11, 400, 0.4)] cardNumber=null
+- За линии 64-70 ( if(item.getPrice() > 300 || item.getDiscount() > 0 || item.getQuantity() > 10), sum -= 30, if(item.getDiscount() > 0) и sum со попуст) и за 87 (Throw exception)
+
 
 TC4
-- За if(item.getDiscount() > 0) и sum со попуст
-- checkCart(List.of(new Item("B", 2, 100, 0.1)), "123456789")
+- allItems=[("B", 11, 100, 0)] cardNumber="1234abcd56789123"
+- За линии 72 (sum без попуст во else делот) и 76-82 ( if(cardNumber != null && cardNumber.length() == 16) и линиите во тој if услов и за if(allowed.indexOf(c) == -1) со Throw Exception )
 
 TC5
-- За sum без попуст во else делот
-- checkCart(List.of(new Item("C", 11, 100, 0.0)), "123456789")
+- allItems=[("C",11,100,0)] cardNumber="1234567891234567"
+- Со ова и return sum кога сите влезови се валидни
 
-TC6
-- За if(cardNumber != null && cardNumber.length() == 16) и линиите во тој if услов
-- checkCart(List.of(new Item("D", 1, 100, 0)), "1234567891234567")
-
-TC7
-- За if(allowed.indexOf(c) == -1) и Throw Exception
-- checkCart(List.of(new Item("E", 1, 100, 0)), "1234abcd56789123")
-
-TC8
-- За последниот else и Throw Exception
-- checkCart(List.of(new Item("F", 1, 100, 0)), "12345")
 
 
 ### Тест случаи според Multiple Condition критериумот
@@ -53,24 +43,17 @@ TC8
 
 - За да се постигне овој критериум мора да има минимално 4 тест случаи:
 
-TXX	item.getPrice()>300							(400,0,5)
+TXX	item.getPrice()>300 , Првиот услов е точен, па останатите не се евалуираат	("A",5,400,0)
 
-FTX	item.getPrice()<=300, item.getDiscount()>0				(250,0.5,5)
+FTX	item.getPrice()<=300, item.getDiscount()>0,	Првиот услов е неточен, вториот е точен		("B",5,250,0.5)
 
-FFT	item.getPrice()<=300, item.getDiscount()<=0, item.getQuantity()>10	(250,0,15)
+FFT	item.getPrice()<=300, item.getDiscount()<=0, item.getQuantity()>10, Само третиот услов е точен	("C",15,250,0)
 
-FFF	item.getPrice()<=300, item.getDiscount()<=0, item.getQuantity()<=10	(250,0,5)
+FFF	item.getPrice()<=300, item.getDiscount()<=0, item.getQuantity()<=10, Сите услови се неточни - ова е единствениот случај кога условот не се исполнува	("D",5,250,0)
 
 
 - Со овие 4 тест случаи, се постигнува покривање на сите можни излезни резултати од условот (true и false).
 
-TXX: Првиот услов е точен, па останатите не се евалуираат (short-circuit)
-
-FTX: Првиот услов е неточен, вториот е точен
-
-FFT: Само третиот услов е точен
-
-FFF: Сите услови се неточни - ова е единствениот случај кога условот не се исполнува
 
 
 ### Објаснување на unit тестовите
