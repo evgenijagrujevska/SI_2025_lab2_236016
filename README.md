@@ -16,24 +16,24 @@
 - За да се постигне овој критериум мора да има минимално 5 тест случаи:
 
 TC1
-- allItems=null cardNumber=any
-- За линии 52,53  ( if (allItems == null) и Throw Exception )
+- allItems=null , cardNumber=any
+- За линиите од кодот 52,53  ( if (allItems == null) и Throw Exception )
 
 TC2
-- allItems=[("", 1, 100, 0)] cardNumber=any
-- За линии 55-61  ( sum=0, for, Item item=allItems.get(i), if(item.getName() == null || item.getName().length() == 0) и Throw Exception )
+- allItems=[("", 1, 100, 0)] , cardNumber=any
+- За линиите од кодот 55-61  ( sum=0, for, Item item=allItems.get(i), if(item.getName() == null || item.getName().length() == 0) и Throw Exception )
 
 TC3
-- allItems=[("A", 11, 400, 0.4)] cardNumber=null
-- За линии 64-70 ( if(item.getPrice() > 300 || item.getDiscount() > 0 || item.getQuantity() > 10), sum -= 30, if(item.getDiscount() > 0) и sum со попуст) и за 87 (Throw exception)
+- allItems=[("A", 11, 400, 0.4)] , cardNumber=null
+- За линиите од кодот 64-70 ( if(item.getPrice() > 300 || item.getDiscount() > 0 || item.getQuantity() > 10), sum -= 30, if(item.getDiscount() > 0) и sum со попуст) и за 87 (Throw exception)
 
 
 TC4
-- allItems=[("B", 11, 100, 0)] cardNumber="1234abcd56789123"
-- За линии 72 (sum без попуст во else делот) и 76-82 ( if(cardNumber != null && cardNumber.length() == 16) и линиите во тој if услов и за if(allowed.indexOf(c) == -1) со Throw Exception )
+- allItems=[("B", 11, 100, 0)] , cardNumber="1234abcd56789123"
+- За линиите од кодот 72 (sum без попуст во else делот) и 76-82 ( if(cardNumber != null && cardNumber.length() == 16) и линиите во тој if услов и за if(allowed.indexOf(c) == -1) со Throw Exception )
 
 TC5
-- allItems=[("C",11,100,0)] cardNumber="1234567891234567"
+- allItems=[("C",11,100,0)] , cardNumber="1234567891234567"
 - Со ова и return sum кога сите влезови се валидни
 
 
@@ -43,17 +43,25 @@ TC5
 
 - За да се постигне овој критериум мора да има минимално 4 тест случаи:
 
-TXX	item.getPrice()>300 , Првиот услов е точен, па останатите не се евалуираат	("A",5,400,0)
+TXX	item.getPrice()>300 
+- Првиот услов е точен а останатите не се евалуираат :	("A",5,400,0)
 
-FTX	item.getPrice()<=300, item.getDiscount()>0,	Првиот услов е неточен, вториот е точен		("B",5,250,0.5)
+FTX	item.getPrice()<=300, item.getDiscount()>0
+- Првиот услов е неточен, вториот е точен	:	("B",5,250,0.5)
 
-FFT	item.getPrice()<=300, item.getDiscount()<=0, item.getQuantity()>10, Само третиот услов е точен	("C",15,250,0)
+FFT	item.getPrice()<=300, item.getDiscount()<=0, item.getQuantity()>10
+- Само третиот услов е точен : ("C",15,250,0)
 
-FFF	item.getPrice()<=300, item.getDiscount()<=0, item.getQuantity()<=10, Сите услови се неточни - ова е единствениот случај кога условот не се исполнува	("D",5,250,0)
+FFF	item.getPrice()<=300, item.getDiscount()<=0, item.getQuantity()<=10
+- Сите услови се неточни - ова е единствениот случај кога условот не се исполнува	: ("D",5,250,0)
 
 
-- Со овие 4 тест случаи, се постигнува покривање на сите можни излезни резултати од условот (true и false).
+Со овие 4 тест случаи, се постигнува покривање на сите можни излезни резултати од условот (true и false).
 
 
 
 ### Објаснување на unit тестовите
+
+- За Every Statement има 4 тест случаи за кои се користи assertThrows за фрлање ислкучоци и 1 тест случај со assertEquals за проверка на sum.
+
+- За Multiple Condition има 4 тест случаи за кои се користи assertEquals за проверка на сумите на секој од нив.
